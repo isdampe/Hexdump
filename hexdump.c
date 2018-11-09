@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include "hexdump.h"
 
-enum hexdump_status hexdump_process(struct hexdump_session *session)
+enum hexdump_status hexdump_process(const struct hexdump_session *session)
 {
 	FILE *fd = NULL;
 	size_t file_size = 0;
@@ -29,7 +29,7 @@ enum hexdump_status hexdump_process(struct hexdump_session *session)
 	return HEXDUMP_STATUS_OK;
 }
 
-static inline void hexdump_print(uint8_t *buffer, const int min_line_size, const int buffer_length)
+static inline void hexdump_print(const uint8_t *buffer, const int min_line_size, const int buffer_length)
 {
 	//Hex dump.
 	for (int i=0; i<min_line_size; ++i) {
