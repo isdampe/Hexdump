@@ -20,7 +20,7 @@ enum hexdump_status hexdump_process(const struct hexdump_session *session)
 
 	while (bytes_read < file_size) {
 		size_t r = fread(buffer, sizeof(uint8_t), session->bytes_per_line, fd);
-		hexdump_print(buffer, session->bytes_per_line, r);
+		hexdump_print(buffer, session->bytes_per_line, r, bytes_read);
 		bytes_read += r;
 	}
 
@@ -29,16 +29,18 @@ enum hexdump_status hexdump_process(const struct hexdump_session *session)
 	return HEXDUMP_STATUS_OK;
 }
 
-static inline void hexdump_print(const uint8_t *buffer, const int min_line_size, const int buffer_length)
+static inline void hexdump_print(const uint8_t *buffer, const int min_line_size, const int buffer_length,
+		const size_t offset)
 {
 	//Hex dump.
+	printf("%06x    ", offset);
 	for (int i=0; i<min_line_size; ++i) {
 		if (i < buffer_length)
 			printf("%02x ", buffer[i]);
 		else
 			printf("   ");
 	}
-	printf("\t");
+	printf("    ");
 
 	//Ascii table.
 	for (int i=0; i<min_line_size; ++i) {

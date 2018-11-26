@@ -14,7 +14,7 @@ enum hexdump_status {
 };
 
 enum hexdump_status hexdump_process(const struct hexdump_session *session);
-static inline void hexdump_print(const uint8_t *buffer, const int min_line_size, const int buffer_length);
+static inline void hexdump_print(const uint8_t *buffer, const int min_line_size, const int buffer_length, const size_t offset);
 static inline char hexdump_ascii(const char c);
 
 #endif
